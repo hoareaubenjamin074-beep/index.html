@@ -3,67 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation Matrix | Dashboard</title>
+    <title>Foundation Matrix | Discord Experts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .neon-text { text-shadow: 0 0 10px #ff3b30; color: #ff3b30; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;900&display=swap');
+        body { font-family: 'Outfit', sans-serif; background: #0a0a0c; color: #fff; }
+        .gradient-text { background: linear-gradient(90deg, #ff3b30, #ff9500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="p-8">
+<body class="overflow-x-hidden">
 
-    <div class="max-w-6xl mx-auto" data-aos="fade-up">
-        <header class="flex justify-between items-center mb-10">
-            <h1 class="text-4xl font-black tracking-tighter neon-text">FOUNDATION MATRIX</h1>
-            <div class="px-4 py-2 bg-red-600 rounded-full text-xs font-bold animate-pulse">SYSTEM ONLINE</div>
-        </header>
+    <header class="h-screen flex flex-col justify-center items-center text-center p-6">
+        <h1 class="text-7xl font-black mb-6" data-aos="fade-up">Welcome to <span class="gradient-text">Foundation Matrix</span></h1>
+        <p class="text-xl text-gray-400 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">The ultimate destination for premium Discord server management, custom roles, and viral growth strategies.</p>
+        <a href="#services" class="bg-red-600 hover:bg-red-700 px-8 py-4 rounded-full font-bold transition transform hover:scale-105" data-aos="fade-up" data-aos-delay="400">Explore Services</a>
+    </header>
 
-        <div class="glass p-8 rounded-2xl">
-            <h2 class="text-2xl mb-6 font-bold">Active Moderation Logs</h2>
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="text-gray-500 border-b border-white/10">
-                        <th class="pb-4">USER ID</th>
-                        <th class="pb-4">REASON</th>
-                        <th class="pb-4">MODERATOR</th>
-                        <th class="pb-4">TIMESTAMP</th>
-                    </tr>
-                </thead>
-                <tbody id="logs-container">
-                    <tr><td colspan="4" class="py-10 text-center text-gray-500">Connecting to Discord Gateway...</td></tr>
-                </tbody>
-            </table>
+    <section id="services" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="text-4xl font-bold mb-16 text-center" data-aos="fade-up">Our Expertise</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="p-8 border border-white/10 rounded-3xl hover:border-red-500 transition" data-aos="fade-right">
+                <h3 class="text-2xl font-bold mb-4">Server Architecture</h3>
+                <p class="text-gray-400">From scratch to pro. We build optimized servers tailored for any community size.</p>
+            </div>
+            <div class="p-8 border border-white/10 rounded-3xl hover:border-red-500 transition" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-4">Role & Permissions</h3>
+                <p class="text-gray-400">Complex hierarchies designed for safety and clean management.</p>
+            </div>
+            <div class="p-8 border border-white/10 rounded-3xl hover:border-red-500 transition" data-aos="fade-left">
+                <h3 class="text-2xl font-bold mb-4">Viral Advertising</h3>
+                <p class="text-gray-400">Gain real traction with our specialized ad packages and marketing strategies.</p>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="py-20 bg-white/5" id="pricing">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-16">Simple Pricing</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="p-10 bg-black rounded-3xl border border-white/10" data-aos="flip-left">
+                    <h3 class="text-2xl font-bold mb-6">FREE SERVICES</h3>
+                    <p class="text-gray-400 mb-8">Basic advice, setup tips, and community support.</p>
+                    <span class="text-5xl font-black">$0</span>
+                </div>
+                <div class="p-10 bg-red-600 rounded-3xl" data-aos="flip-right">
+                    <h3 class="text-2xl font-bold mb-6">PREMIUM</h3>
+                    <p class="mb-8">Full custom bots, server deployment, and VIP growth packs.</p>
+                    <span class="text-5xl font-black">Contact Us</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        
-        // REPLACER AVEC VOTRE TOKEN ET ID SALON
-        const BOT_TOKEN = "DISCORD_TOKEN"; 
-        const CHANNEL_ID = "1514965906995019977";
-
-        async function updateLogs() {
-            try {
-                const res = await fetch(`https://discord.com/api/v10/channels/${CHANNEL_ID}/messages?limit=10`, {
-                    headers: { "Authorization": `Bot ${BOT_TOKEN}` }
-                });
-                const data = await res.json();
-                const container = document.getElementById('logs-container');
-                container.innerHTML = data.map(msg => `
-                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                        <td class="py-4 font-mono text-red-400">${msg.author.username}</td>
-                        <td class="py-4">${msg.content || 'No reason provided'}</td>
-                        <td class="py-4 text-gray-400">Moderator Bot</td>
-                        <td class="py-4 text-xs text-gray-600">${new Date(msg.timestamp).toLocaleString()}</td>
-                    </tr>
-                `).join('');
-            } catch(e) { console.error("Error fetching logs"); }
-        }
-        updateLogs();
-    </script>
+    <script>AOS.init({ once: true });</script>
 </body>
 </html>
